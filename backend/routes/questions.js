@@ -1,7 +1,5 @@
 const {Router} = require('express')
 const Question = require('../models/question')
-var bodyParser = require("body-parser");
-var phpStyleParser = bodyParser.urlencoded({ extended: true })
 
 const router = Router()
 
@@ -26,13 +24,13 @@ router.get('/', async (req, res) => {
 router.post('/', async (req,res) => {
     const questionsArray = req.body.Questions
     await Question.insertMany(questionsArray)
-    res.send('Успешно добавлена в дб!')
+    res.send('Questions added succesfully')
 })
 
 router.delete('/', async (req,res) => {
     const Deletes = req.body
     await Question.deleteMany(Deletes)
-    res.send('All objects deleted')
+    res.send('All questions are deleted')
 })
 
 module.exports = router
