@@ -1,7 +1,7 @@
 const { default: mongoose } = require('mongoose')
 const {Schema, model} = require('mongoose')
 
-const schema = new Schema({
+const question = new Schema({
     question: String,
     theme: String,
     difficulty: String,
@@ -14,6 +14,6 @@ const schema = new Schema({
     versionKey: false
 })
 
-const Question = mongoose.model('Question', schema)
+const Question = mongoose.model('Question', question)
 
 module.exports = Question
