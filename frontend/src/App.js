@@ -2,8 +2,12 @@ import StartPage from "./Quiz/StartPage";
 import QuestionsPage from "./Quiz/QuestionsPage";
 import { useState } from "react";
 const questions = [
-  { question: "React is hard?", answer1: "Yes", answer2: "No" },
-  { question: "Should i kill myself?", answer1: "Yes", answer2: "No" },
+  { question: "React is hard?", answers: ["Yes", "No", "I dont know"] },
+  {
+    question: "Which HTML5 element defines navigation links?",
+    answers: ["navigation", "links", "nav", "navigate"],
+  },
+  { question: "HTML ID's can only be used once", answers: ["True", "False"] },
 ];
 
 const result = [];

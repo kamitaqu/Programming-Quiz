@@ -1,19 +1,16 @@
-import React, { useRef } from "react";
+import React, { createRef, useEffect, useRef } from "react";
 
 export default function QuestionsPage({ question, handleSubmit, result }) {
   function selectOnlyThis(id) {
-    for (var i = 1; i <= 2; i++) {
-      document.getElementById("check" + i).checked = false;
+    const answers = question.answers;
+    for (var i = 0; i < answers.length; i++) {
+      document.getElementById(i).checked = false;
     }
     document.getElementById(id).checked = true;
   }
 
-  const input1 = useRef(null);
-  const input2 = useRef(null);
-
   const uncheck = () => {
-    input1.current.checked = false;
-    input2.current.checked = false;
+    refsArray.map((item) => (item.current.checked = false));
   };
 
   let answer;
@@ -41,29 +38,23 @@ export default function QuestionsPage({ question, handleSubmit, result }) {
     }
   };
 
+  const answers = question.answers;
+  const refsArray = answers.map(() => createRef());
   return (
     <div>
       <h2>{question.question}</h2>
-      <p>
-        <input
-          id="check1"
-          onClick={(e) => handleInput(e)}
-          type="checkbox"
-          ref={input1}
-          value={question.answer1}
-        />
-        {question.answer1}
-      </p>
-      <p>
-        <input
-          id="check2"
-          onClick={(e) => handleInput(e)}
-          type="checkbox"
-          ref={input2}
-          value={question.answer2}
-        />
-        {question.answer2}
-      </p>
+      {question.answers.map((ans, index) => (
+        <h2>
+          <input
+            id={index}
+            type="checkbox"
+            onClick={(e) => handleInput(e)}
+            value={ans}
+            ref={refsArray[index]}
+          />
+          {ans}
+        </h2>
+      ))}
       <button onClick={handleButtonSubmit} type="submit">
         Submit answer
       </button>
