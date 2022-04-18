@@ -1,12 +1,10 @@
 import React, { createRef, useEffect, useRef } from "react";
+import faker from "@faker-js/faker";
 
 export default function QuestionsPage({ question, handleSubmit, result }) {
-  function selectOnlyThis(id) {
-    const answers = question.answers;
-    for (var i = 0; i < answers.length; i++) {
-      document.getElementById(i).checked = false;
-    }
-    document.getElementById(id).checked = true;
+  function selectOnlyThis(event) {
+    refsArray.map((item) => (item.current.checked = false));
+    event.target.checked = true;
   }
 
   const uncheck = () => {
@@ -17,7 +15,7 @@ export default function QuestionsPage({ question, handleSubmit, result }) {
 
   const handleInput = (event) => {
     answer = event.target.value;
-    selectOnlyThis(event.target.id);
+    selectOnlyThis(event);
   };
 
   const noneSelected = () => {
@@ -44,7 +42,7 @@ export default function QuestionsPage({ question, handleSubmit, result }) {
     <div>
       <h2>{question.question}</h2>
       {question.answers.map((ans, index) => (
-        <h2>
+        <h3 key={faker.datatype.uuid()}>
           <input
             id={index}
             type="checkbox"
@@ -52,8 +50,9 @@ export default function QuestionsPage({ question, handleSubmit, result }) {
             value={ans}
             ref={refsArray[index]}
           />
+          &nbsp;
           {ans}
-        </h2>
+        </h3>
       ))}
       <button onClick={handleButtonSubmit} type="submit">
         Submit answer

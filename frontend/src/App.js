@@ -1,13 +1,24 @@
 import StartPage from "./Quiz/StartPage";
 import QuestionsPage from "./Quiz/QuestionsPage";
+import ResultPage from "./Quiz/ResultPage";
 import { useState } from "react";
+
 const questions = [
-  { question: "React is hard?", answers: ["Yes", "No", "I dont know"] },
+  {
+    question: "React is hard?",
+    answers: ["Yes", "No", "I dont know"],
+    correctAnswer: "No",
+  },
   {
     question: "Which HTML5 element defines navigation links?",
     answers: ["navigation", "links", "nav", "navigate"],
+    correctAnswer: "links",
   },
-  { question: "HTML ID's can only be used once", answers: ["True", "False"] },
+  {
+    question: "HTML ID's can only be used once",
+    answers: ["True", "False"],
+    correctAnswer: "True",
+  },
 ];
 
 const result = [];
@@ -15,6 +26,7 @@ const result = [];
 function App() {
   const START_PAGE = 0;
   const QUESTIONS_PAGE = 1;
+  const RESULT_PAGE = 2;
 
   const [page, setPage] = useState(START_PAGE);
   const [questionNumber, setQuestionNumber] = useState(0);
@@ -26,7 +38,7 @@ function App() {
       setQuestionNumber(questionNumber + 1);
     } else {
       setQuestionNumber(0);
-      setPage(START_PAGE);
+      setPage(RESULT_PAGE);
     }
   };
 
@@ -46,6 +58,8 @@ function App() {
             question={questions[questionNumber]}
           />
         );
+      case RESULT_PAGE:
+        return <ResultPage result={result} question={questions} />;
       default:
         return "";
     }
